@@ -14,25 +14,33 @@ clean() {
 
 dev() {
     mkdir -p output
-    docker run --rm --gpus=all --entrypoint=sh \
+    docker run --rm --gpus=all --entrypoint=bash \
         -v huggingface:/home/huggingface/.cache/huggingface \
         -v "$PWD"/output:/home/huggingface/output \
         -it "$CWD"
 }
 
 run() {
-    shift
     mkdir -p output
-    docker run --rm --gpus=all \
+    docker run -d --rm --gpus=all -p 8080:8080 \
         -v huggingface:/home/huggingface/.cache/huggingface \
         -v "$PWD"/output:/home/huggingface/output \
-        "$CWD" "$@"
+        "$CWD"
+}
+
+nsfw() {
+    mkdir -p output
+    docker run -d --rm --gpus=all -p 8080:8080 \
+        -v huggingface:/home/huggingface/.cache/huggingface \
+        -v "$PWD"/output:/home/huggingface/output \
+        "$CWD":NSFW
 }
 
 case ${1:-build} in
     build) build ;;
     clean) clean ;;
     dev) dev "$@" ;;
-    run) run "$@" ;;
+    run) run ;;
+    nsfw) nsfw ;;
     *) echo "$0: No command named '$1'" ;;
 esac
