@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import datetime
-import random
 import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline
@@ -29,7 +28,7 @@ print("loaded models after:", isodatetime(), flush=True)
 
 def render(prompt, samples=1, height=512, width=512, steps=50, scale=7.5, seed=None):
     if seed is None:
-        seed = random.randint(1, 2 ** 31)
+        seed = torch.random.seed()
     generator = torch.Generator(device=DEVICE).manual_seed(seed)
     with autocast(DEVICE):
         images = pipe(
