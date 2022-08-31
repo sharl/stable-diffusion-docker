@@ -27,8 +27,9 @@ pipe = StableDiffusionPipeline.from_pretrained(
 print("loaded models after:", isodatetime(), flush=True)
 
 
-def render(prompt, samples=1, height=512, width=512, steps=50, scale=7.5):
-    seed = random.randint(1, 2 ** 31)
+def render(prompt, samples=1, height=512, width=512, steps=50, scale=7.5, seed=None):
+    if seed is None:
+        seed = random.randint(1, 2 ** 31)
     generator = torch.Generator(device=DEVICE).manual_seed(seed)
     with autocast(DEVICE):
         images = pipe(
@@ -61,6 +62,18 @@ def hello():
 def main(text):
     print('text', text)
     render(text, steps=20)
+
+
+@route('/<text>/<steps:int>')
+def main_steps(text, steps):
+    print('text', text)
+    render(text, steps=steps)
+
+
+@route('/<text>/<steps:int>/<seed:int>')
+def main_steps_seed(text, steps, seed):
+    print('text', text)
+    render(text, steps=steps, seed=seed)
 
 
 run(host='0.0.0.0', port=8080, debug=True)
