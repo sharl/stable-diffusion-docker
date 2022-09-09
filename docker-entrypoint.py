@@ -52,8 +52,8 @@ def render(prompt, samples=1, height=512, width=512, steps=50, scale=7.5, seed=N
 
     print("ended rendering    :", isodatetime(), flush=True)
 
+    iname = prompt.replace(" ", "_")
     for i, image in enumerate(images["sample"]):
-        iname = prompt.replace(" ", "_")
         image.save(
             "output/%s__steps_%d__scale_%0.2f__seed_%d__n_%d.png"
             % (iname, steps, scale, seed, i + 1)
