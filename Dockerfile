@@ -16,5 +16,6 @@ RUN mkdir -p /home/huggingface/.cache/huggingface \
 COPY docker-entrypoint.py /usr/local/bin
 COPY token.txt /home/huggingface
 
+ENV PYTHONUNBUFFERED 1
 EXPOSE 8080
 ENTRYPOINT [ "docker-entrypoint.py" ]
