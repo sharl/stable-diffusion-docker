@@ -1,15 +1,4 @@
-# Stable Diffusion in Docker
-
-Runs the official [Stable Diffusion v1.4](https://huggingface.co/CompVis/stable-diffusion-v1-4)
-release on [Huggingface](https://huggingface.co/) in a GPU accelerated Docker
-container.
-
-```sh
-./build.sh run 'An impressionist painting of a parakeet eating spaghetti in the desert'
-```
-
-![An impressionist painting of a parakeet eating spaghetti in the desert 1](img/An_impressionist_painting_of_a_parakeet_eating_spaghetti_in_the_desert_s1.png)
-![An impressionist painting of a parakeet eating spaghetti in the desert 2](img/An_impressionist_painting_of_a_parakeet_eating_spaghetti_in_the_desert_s2.png)
+# Stable Diffusion in Docker with HTTP interface
 
 ## Before you start
 
@@ -38,50 +27,18 @@ To build:
 ./build.sh build  # or just ./build.sh
 ```
 
-## Run
+## Run Docker Container
 
 To run:
 
 ```sh
-./build.sh run 'A high tech solarpunk utopia in the Amazon rainforest'
+./build.sh run
 ```
 
-### Options
-
-Some of the options from [`txt2img.py`](https://github.com/CompVis/stable-diffusion/blob/main/scripts/txt2img.py)
-are implemented for compatibility:
-
-* `--prompt [PROMPT]`: the prompt to render into an image
-* `--n_samples [N_SAMPLES]`: number of images to create (default 1)
-* `--H [H]`: image height in pixels (default 512)
-* `--W [W]`: image width in pixels (default 512)
-* `--scale [SCALE]`: unconditional guidance scale (default 7.5)
-* `--seed [SEED]`: RNG seed for repeatability (default is a random seed)
-* `--ddim_steps [DDIM_STEPS]`: number of sampling steps (default 50)
-
-Other options:
-
-* `--half`: use float16 tensors instead of float32 (default float32)
-
-### Examples
-
-These commands are both identical:
+## Generate
 
 ```sh
-./build.sh run 'abstract art'
-./build.sh run --prompt 'abstract art'
-```
-
-Set the seed to 42:
-
-```sh
-./build.sh run --seed 42 'abstract art'
-```
-
-Options can be combined:
-
-```sh
-./build.sh run --scale 7.0 --seed 42 'abstract art'
+./gen.py 'An impressionist painting of a parakeet eating spaghetti in the desert'
 ```
 
 ## Outputs
