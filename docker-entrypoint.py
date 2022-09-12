@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import datetime
+import hashlib
 import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline
@@ -52,11 +53,12 @@ def render(prompt, samples=1, height=512, width=512, steps=50, scale=7.5, seed=N
 
     print("ended rendering    :", isodatetime(), flush=True)
 
-    iname = prompt.replace(" ", "_")
+    s512 = hashlib.sha512(prompt.encode()).hexdigest()[:32]
+    iname = prompt.replace(" ", "_")[:100]
     for i, image in enumerate(images["sample"]):
         image.save(
-            "output/%s__steps_%d__scale_%0.2f__seed_%d__n_%d.png"
-            % (iname, steps, scale, seed, i + 1)
+            "output/%s__%s__steps_%d__scale_%0.2f__seed_%d__n_%d.png"
+            % (s512, iname, steps, scale, seed, i + 1)
         )
 
 
