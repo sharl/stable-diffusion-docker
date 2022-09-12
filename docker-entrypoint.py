@@ -54,7 +54,7 @@ def render(prompt, samples=1, height=512, width=512, steps=50, scale=7.5, seed=N
     print("ended rendering    :", isodatetime(), flush=True)
 
     s512 = hashlib.sha512(prompt.encode()).hexdigest()[:32]
-    iname = prompt.replace(" ", "_")[:100]
+    iname = bytes(prompt, 'utf-8')[:100].decode('utf-8', 'ignore').replace(' ', '_')
     for i, image in enumerate(images["sample"]):
         image.save(
             "output/%s__%s__steps_%d__scale_%0.2f__seed_%d__n_%d.png"
