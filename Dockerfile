@@ -2,7 +2,7 @@ FROM tensorflow/tensorflow:latest-gpu
 
 RUN pip install --upgrade diffusers pillow torch transformers ftfy \
   --extra-index-url https://download.pytorch.org/whl/cu116
-RUN pip install bottle
+RUN pip install bottle requests
 
 RUN useradd -m huggingface
 
