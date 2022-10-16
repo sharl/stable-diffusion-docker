@@ -1,6 +1,6 @@
 FROM tensorflow/tensorflow:latest-gpu
 
-RUN pip install --upgrade diffusers pillow torch transformers ftfy \
+RUN pip install --upgrade pip diffusers==0.5.1 pillow scipy torch==1.12.1+cu116 transformers==4.23.1 ftfy \
   --extra-index-url https://download.pytorch.org/whl/cu116
 RUN pip install bottle requests
 
