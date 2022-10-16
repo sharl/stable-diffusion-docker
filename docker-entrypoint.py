@@ -16,25 +16,25 @@ def isodatetime():
 
 # prepare
 model_name = 'CompVis/stable-diffusion-v1-4'
-model_name = 'hakurei/waifu-diffusion'
+# model_name = 'hakurei/waifu-diffusion'
 DEVICE = 'cuda'
 # select your VRAM
-dtype, rev = (torch.float32, "main")
-dtype, rev = (torch.float16, "fp16")
+dtype = torch.float32
+dtype = torch.float16
 
 with open("token.txt") as f:
     token = f.read().replace("\n", "")
 
 # init text to image
 pipe = StableDiffusionPipeline.from_pretrained(
-    model_name, torch_dtype=dtype, revision=rev, use_auth_token=token
+    model_name, torch_dtype=dtype, use_auth_token=token
 ).to(DEVICE)
 pipe.enable_attention_slicing()
 safety_checker = pipe.safety_checker
 
 # init image to image
 img_pipe = StableDiffusionImg2ImgPipeline.from_pretrained(
-    model_name, torch_dtype=dtype, revision=rev, use_auth_token=token
+    model_name, torch_dtype=dtype, use_auth_token=token
 ).to(DEVICE)
 img_pipe.enable_attention_slicing()
 img_safety_checker = img_pipe.safety_checker
